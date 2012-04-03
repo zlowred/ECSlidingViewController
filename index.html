@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>ECSlidingViewController by edgecase</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>ECSlidingViewController</h1>
+        <p>ECSlidingViewController is a view controller container for iOS that presents its child view controllers in two layers. It provides functionality for sliding the top view to reveal the views underneath it. This functionality is inspired by the Path 2.0 and Facebook iPhone apps.</p>
+        <p class="view"><a href="https://github.com/edgecase/ECSlidingViewController">View the Project on GitHub <small>edgecase/ECSlidingViewController</small></a></p>
+        <ul>
+          <li><a href="https://github.com/edgecase/ECSlidingViewController/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/edgecase/ECSlidingViewController/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/edgecase/ECSlidingViewController">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>ECSlidingViewController</h1>
+
+<p><code>ECSlidingViewController</code> is a view controller container for iOS that presents its child view controllers in two layers. It provides functionality for sliding the top view to reveal the views underneath it. This functionality is inspired by the Path 2.0 and Facebook iPhone apps.</p>
+
+<p></p><p><a href="http://vimeo.com/35959384">ECSlidingViewController Demo</a> from <a href="http://vimeo.com/user5026288">EdgeCase</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
+
+<p>This project is an example app that showcases the uses for <code>ECSlidingViewController</code>. This app uses storyboards, but it is not required.</p>
+
+<h2>Features</h2>
+
+<ul>
+<li>Panning gesture to move top view can be set on any <code>UIView</code>. It is most likely a navigation bar or the whole top view itself.</li>
+<li>Configurable anchor positions, with automatic adjustments for orientation change. See "Anchor Position Geometry" section below.</li>
+<li>There are no assumptions about the size and layout of the views under the top view. See the <code>underLeftWidthLayout</code> and <code>underRightWidthLayout</code> properties if you need a common layout.</li>
+<li>The child views can be changed at anytime.</li>
+<li>Child view controllers can be an instance of <code>UIViewController</code> or any subclass of <code>UIViewController</code> including <code>UINavigationController</code> and <code>UITabBarController</code>.</li>
+<li>iPad support.</li>
+<li>See <a href="https://github.com/edgecase/ECSlidingViewController/blob/master/ECSlidingViewController/Vendor/ECSlidingViewController/ECSlidingViewController.h">ECSlidingViewController/Vendor/ECSlidingViewController/ECSlidingViewController.h</a> for options and configuration.</li>
+</ul><h2>Requirements</h2>
+
+<ul>
+<li>iOS 5</li>
+<li>ARC</li>
+</ul><h2>Getting Started</h2>
+
+<p>This section will walk through of a simplified version of the included example app. You'll see how to setup the top view that can be panned to the right side to reveal the under left view.</p>
+
+<h3>Copy ECSlidingViewController into your project</h3>
+
+<p>You'll need these four files:</p>
+
+<ul>
+<li>ECSlidingViewController/Vendor/ECSlidingViewController/ECSlidingViewController.h</li>
+<li>ECSlidingViewController/Vendor/ECSlidingViewController/ECSlidingViewController.m</li>
+<li>ECSlidingViewController/Vendor/ECSlidingViewController/UIImage+ImageWithUIView.h</li>
+<li>ECSlidingViewController/Vendor/ECSlidingViewController/UIImage+ImageWithUIView.m</li>
+</ul><h3>Setup storyboards and set the topViewController</h3>
+
+<p>Add a UIViewController to your storyboards and set the subclass to <code>ECSlidingViewController</code>.  Then, you'll need to configure the instance of this view controller by setting a <code>topViewController</code></p>
+
+<pre><code>  ECSlidingViewController *slidingViewController = (ECSlidingViewController *)self.window.rootViewController;
+
+  slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTop"];
+</code></pre>
+
+<p>In this example, we can get a reference to the <code>ECSlidingViewController</code> instance then, we set the <code>topViewController</code> with an instance of a <code>UIViewController</code> subclass called <code>FirstTopViewController</code> that is identified as "FirstTop".</p>
+
+<h3>Configure the topViewController</h3>
+
+<p>The top view controller is responsible for two things:</p>
+
+<ul>
+<li>Setting the view controllers underneath it.</li>
+<li>Adding the <code>panGesture</code> to a <code>UIView</code>.</li>
+</ul><p>To do these, you must first add an <code>#import "ECSlidingViewController.h"</code> to the <code>FirstTopViewController</code> header. Then in the implementation you'll have access to a category on <code>UIViewController</code> called <code>slidingViewController</code>.  This the top-level instance of the <code>ECSlidingViewController</code> container.  With this instance, you can set the view controllers underneath the top view and add panning.</p>
+
+<p>Below is the <code>viewWillAppear:</code> method for <code>FirstTopViewController</code>.</p>
+
+<pre><code>- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+
+  if (![self.slidingViewController.underLeftViewController isKindOfClass:[MenuViewController class]]) {
+    self.slidingViewController.underLeftViewController  = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
+  }
+
+  [self.view addGestureRecognizer:self.slidingViewController.panGesture];
+  [self.slidingViewController setAnchorRightRevealAmount:280.0f];
+}
+</code></pre>
+
+<p>The above code will conditionally set the <code>underLeftViewController</code> if it is not already there. Then, it adds the gesture recognizer to the top view. The last line of code specifies the top view's anchor position on the right side.</p>
+
+<h2>Anchor Position Geometry</h2>
+
+<p>There are four properties related to anchor positions. They are a combination of left, right, reveal amount, and peek amount. The diagrams below demonstrate the difference between peek and reveal.</p>
+
+<ul>
+<li>anchorLeftPeekAmount</li>
+<li>anchorRightPeekAmount</li>
+<li>anchorLeftRevealAmount</li>
+<li>anchorRightRevealAmount</li>
+</ul><p>Below is an example of the anchorRightPeekAmount set:</p>
+
+<p><img src="http://dl.dropbox.com/u/10937237/peek.png" alt="anchorRightPeekAmount example"></p>
+
+<p>Below is an example of the anchorRightRevealAmount set:</p>
+
+<p><img src="http://dl.dropbox.com/u/10937237/reveal.png" alt="anchorRightRevealAmount example"></p>
+
+<h2>MIT License</h2>
+
+<p>Copyright (C) 2012 EdgeCase</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/edgecase">edgecase</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
