@@ -1,23 +1,27 @@
 //
 //  MenuViewController.m
-//  ECSlidingViewController
+//  ECSlidingViewControllerNib
 //
-//  Created by Michael Enriquez on 1/23/12.
-//  Copyright (c) 2012 EdgeCase. All rights reserved.
+//  Created by Michael Enriquez on 2/5/13.
+//  Copyright (c) 2013 EdgeCase. All rights reserved.
 //
 
 #import "MenuViewController.h"
+#import "SlidingNavigationController.h"
 
 @interface MenuViewController()
 @property (nonatomic, strong) NSArray *menuItems;
 @end
 
 @implementation MenuViewController
-@synthesize menuItems;
 
-- (void)awakeFromNib
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-  self.menuItems = [NSArray arrayWithObjects:@"First", @"Second", @"Third", @"Navigation", nil];
+  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+  if (self) {
+    _menuItems = @[@"FirstTop", @"SampleTable"];
+  }
+  return self;
 }
 
 - (void)viewDidLoad
@@ -48,16 +52,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSString *identifier = [NSString stringWithFormat:@"%@Top", [self.menuItems objectAtIndex:indexPath.row]];
-
-  UIViewController *newTopViewController = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
+  NSString *identifier =  [NSString stringWithFormat:@"%@ViewController", [self.menuItems objectAtIndex:indexPath.row]];
+  
+  Class newTopViewControllerClass = NSClassFromString(identifier);
+  UIViewController *newTopViewController =  [[newTopViewControllerClass alloc] init];
+  
+  SlidingNavigationController *newTopNavController = [[SlidingNavigationController alloc] initWithRootViewController:newTopViewController];
   
   [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
     CGRect frame = self.slidingViewController.topViewController.view.frame;
-    self.slidingViewController.topViewController = newTopViewController;
+    self.slidingViewController.topViewController = newTopNavController;
     self.slidingViewController.topViewController.view.frame = frame;
     [self.slidingViewController resetTopView];
   }];
 }
+
 
 @end

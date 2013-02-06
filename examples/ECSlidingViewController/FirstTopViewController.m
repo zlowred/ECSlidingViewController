@@ -41,4 +41,9 @@
   [self.slidingViewController anchorTopViewTo:ECLeft];
 }
 
+- (void)viewDidUnload {
+  [self setRevealMenu:nil];
+  [self setRevealMenu:nil];
+  [super viewDidUnload];
+}
 @end
