@@ -22,6 +22,7 @@
   }
   
   self.topViewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTop"];
+    self.shouldAllowPanningPastAnchor = NO;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
