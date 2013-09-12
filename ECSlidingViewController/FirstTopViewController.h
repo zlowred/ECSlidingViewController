@@ -12,7 +12,7 @@
 #import "MenuViewController.h"
 #import "UnderRightViewController.h"
 
-@interface FirstTopViewController : UIViewController
+@interface FirstTopViewController : UITabBarController
 
 - (IBAction)revealMenu:(id)sender;
 - (IBAction)revealUnderRight:(id)sender;
