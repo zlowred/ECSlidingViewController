@@ -10,6 +10,7 @@
 
 @interface MenuViewController()
 @property (nonatomic, strong) NSArray *menuItems;
+@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 @end
 
 @implementation MenuViewController
@@ -26,6 +27,9 @@
   
   [self.slidingViewController setAnchorRightRevealAmount:280.0f];
   self.slidingViewController.underLeftWidthLayout = ECFullWidth;
+
+  self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self.slidingViewController action:@selector(updateTopViewHorizontalCenterWithRecognizer:)];
+  [self.view addGestureRecognizer:self.panGesture];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
