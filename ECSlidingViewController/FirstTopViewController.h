@@ -11,10 +11,12 @@
 #import "ECSlidingViewController.h"
 #import "MenuViewController.h"
 #import "UnderRightViewController.h"
+#import "ModalViewController.h"
 
-@interface FirstTopViewController : UIViewController
+@interface FirstTopViewController : UIViewController <ModalViewControllerDelegate>
 
 - (IBAction)revealMenu:(id)sender;
 - (IBAction)revealUnderRight:(id)sender;
+- (IBAction)openModal:(id)sender;
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		056DFDFE17E248CD006B9FF0 /* ModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056DFDFD17E248CD006B9FF0 /* ModalViewController.m */; };
 		27407EEC14D8787E0035FD7F /* iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27407EEB14D8787E0035FD7F /* iPad.storyboard */; };
 		27498DCE14E96C75005C043E /* NavigationTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27498DCD14E96C75005C043E /* NavigationTopViewController.m */; };
 		27498DD514E96EEF005C043E /* SampleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27498DD414E96EEF005C043E /* SampleTableViewController.m */; };
@@ -29,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		056DFDFC17E248CD006B9FF0 /* ModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalViewController.h; sourceTree = "<group>"; };
+		056DFDFD17E248CD006B9FF0 /* ModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalViewController.m; sourceTree = "<group>"; };
 		27407EEB14D8787E0035FD7F /* iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPad.storyboard; sourceTree = "<group>"; };
 		27498DCC14E96C75005C043E /* NavigationTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationTopViewController.h; sourceTree = "<group>"; };
 		27498DCD14E96C75005C043E /* NavigationTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationTopViewController.m; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 				27FC94DF14D0C14E0000B18C /* InitialSlidingViewController.m */,
 				2750E79214CDB93A007727A0 /* MenuViewController.h */,
 				2750E79314CDB93A007727A0 /* MenuViewController.m */,
+				056DFDFC17E248CD006B9FF0 /* ModalViewController.h */,
+				056DFDFD17E248CD006B9FF0 /* ModalViewController.m */,
 				27498DCC14E96C75005C043E /* NavigationTopViewController.h */,
 				27498DCD14E96C75005C043E /* NavigationTopViewController.m */,
 				27498DD314E96EEF005C043E /* SampleTableViewController.h */,
@@ -250,6 +255,7 @@
 				27FC94E014D0C14E0000B18C /* InitialSlidingViewController.m in Sources */,
 				27498DCE14E96C75005C043E /* NavigationTopViewController.m in Sources */,
 				27498DD514E96EEF005C043E /* SampleTableViewController.m in Sources */,
+				056DFDFE17E248CD006B9FF0 /* ModalViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

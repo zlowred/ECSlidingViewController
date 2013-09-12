@@ -8,6 +8,10 @@
 
 #import "FirstTopViewController.h"
 
+@interface FirstTopViewController ()
+@property (nonatomic, strong) ModalViewController *modalVC;
+@end
+
 @implementation FirstTopViewController
 
 - (void)viewWillAppear:(BOOL)animated
@@ -28,7 +32,13 @@
     self.slidingViewController.underRightViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"UnderRight"];
   }
   
+  self.modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Modal"];
+  self.modalVC.delegate = self;
   [self.view addGestureRecognizer:self.slidingViewController.panGesture];
+}
+
+- (void)modalViewControllerTappedCancel:(ModalViewController *)modalViewController {
+  [self dismissModalViewControllerAnimated:YES];
 }
 
 - (IBAction)revealMenu:(id)sender
@@ -39,6 +49,10 @@
 - (IBAction)revealUnderRight:(id)sender
 {
   [self.slidingViewController anchorTopViewTo:ECLeft];
+}
+
+- (IBAction)openModal:(id)sender {
+  [self.slidingViewController presentViewController:self.modalVC animated:YES completion:nil];
 }
 
 @end
