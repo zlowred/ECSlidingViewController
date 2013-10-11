@@ -467,6 +467,7 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 - (void)addTopViewSnapshot
 {
   if (!self.topViewSnapshot.superview && !self.shouldAllowUserInteractionsWhenAnchored) {
+    self.topView.isAccessibilityElement = YES;
     topViewSnapshot.layer.contents = (id)[UIImage imageWithUIView:self.topView].CGImage;
     
     if (self.shouldAddPanGestureRecognizerToTopViewSnapshot && (_resetStrategy & ECPanning)) {
@@ -482,6 +483,7 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 - (void)removeTopViewSnapshot
 {
   if (self.topViewSnapshot.superview) {
+    self.topView.isAccessibilityElement = NO;
     [self.topViewSnapshot removeFromSuperview];
   }
 }
